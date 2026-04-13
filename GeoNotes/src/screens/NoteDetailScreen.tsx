@@ -26,7 +26,8 @@ const NoteDetailScreen: React.FC<NoteDetailScreenProps> = ({ navigation, route }
 
     useEffect(() => {
         if (!note) {
-            navigation.goBack();
+            // Если заметка не найдена, заменяем текущий экран на список заметок
+            navigation.replace('NotesList');
         }
     }, [note, navigation]);
 
@@ -42,7 +43,8 @@ const NoteDetailScreen: React.FC<NoteDetailScreenProps> = ({ navigation, route }
                     onPress: async () => {
                         try {
                             await dispatch(removeNote(noteId)).unwrap();
-                            navigation.popToTop();
+                            // После удаления заменяем текущий экран на список заметок
+                            navigation.replace('NotesList');
                         } catch (error) {
                             Alert.alert('Ошибка', 'Не удалось удалить заметку');
                         }
